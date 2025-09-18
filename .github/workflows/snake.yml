@@ -2,12 +2,20 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: '0 0 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write   # to push output branch
+
+concurrency:
+  group: snake-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -17,6 +25,9 @@ jobs:
           github_user_name: SaiiPrashanth
           outputs: |
             dist/github-contribution-grid-snake.svg
+      - name: List generated files
+        run: |
+          ls -R dist || (echo 'dist missing' && exit 1)
       - name: Push snake to output branch
         uses: peaceiris/actions-gh-pages@v3
         with:

@@ -4,13 +4,13 @@
 
 <p align="center">
   <!-- Theme tokens: base=#041a1c mid=#0c4d52 accent=#15a2b2 glow=#5ae2dc -->
-  <img src="https://typograssy.vercel.app/api?text=Sai%20Prashanth&l0=041a1c&l1=063036&l2=09474e&l3=0d5e66&l4=11847f&l5=15a2b2&speed=60" alt="Animated title banner" />
+<a href="https://github.com/kawarimidoll/typograssy">
+    <img alt="HELLO WORLD !" src="https://typograssy.deno.dev/api?text=HELLO%20WORLD%20!%20&l0=none&l1=82d9d0&l2=027353&l3=038c4c&l4=01402e&bg=none&frame=none&speed=100&comment=">
+  </a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Focus-Game%20Dev%20%26%20Rendering-11847f?style=flat-square&logo=azurepipelines&logoColor=ffffff" />
-  <img src="https://img.shields.io/badge/Status-Building%20BoxCraft-15a2b2?style=flat-square" />
-  <img src="https://img.shields.io/badge/Stack-JS%2FTS%20%7C%20Canvas-09474e?style=flat-square" />
+  <img src="https://img.shields.io/badge/GAME DEV- TECH ART-11847f?style=flat-square&logo=azurepipelines&logoColor=ffffff" />
 </p>
 
 <p align="center">
@@ -19,23 +19,22 @@
 
 ---
 
-### 👁️ Terminal Snapshot
+### 📟 Terminal Snapshot
+
 ```bash
+# Simple session snapshot
 sai@dev-machine:~$ profile --version
-Profile v1.0.0
+v1.0.0
 
 sai@dev-machine:~$ whoami
-Creative coder exploring game loops, rendering pipelines, & performance.
+Creative coder exploring game loops, rendering pipelines & performance.
 
-sai@dev-machine:~$ now --stack
-JavaScript  TypeScript  Canvas  Node.js  React  GitHub Actions
+sai@dev-machine:~$ stack
+JavaScript  TypeScript  Canvas  Node.js  React  GitHub-Actions
 
-sai@dev-machine:~$ interests
-Game prototyping, pixel aesthetics, interactive worlds.
-
-sai@dev-machine:~$ current
+sai@dev-machine:~$ focus
 Building: BoxCraft (block world sandbox)
-Learning: Spatial partitioning, ECS basics
+Learning: Spatial partitioning | ECS basics
 
 sai@dev-machine:~$ motto
 "Small iterations, big emergent systems."
@@ -43,7 +42,7 @@ sai@dev-machine:~$ motto
 
 ---
 
-### 🧠 Knowledge Domains <img src="assets/kazuma_sharp.gif" align="right" width="300" alt="Kazuma" />
+### 🚀 Knowledge Domains <img src="assets/kazuma_sharp.gif" align="right" width="300" alt="Kazuma" />
 | Area | Notes |
 |------|-------|
 | Game Mechanics | Loop timing, input handling, world state |
@@ -56,20 +55,13 @@ sai@dev-machine:~$ motto
 
 ### 🛠️ Toolbox
 <p>
-  <img src="https://skillicons.dev/icons?i=js,ts,python,nodejs,react,docker,git,githubactions,Unreal,linux" />
+  <img src="https://skillicons.dev/icons?i=js,ts,python,nodejs,react,docker,git,githubactions,linux" />
 </p>
-<details>
-  <summary>More (click)</summary>
-  <p>
-    <img src="https://img.shields.io/badge/Editor-VS%20Code-007ACC?logo=visualstudiocode&logoColor=white" />
-  <img src="https://img.shields.io/badge/Graphics-Canvas_API-1E90FF" />
-    <img src="https://img.shields.io/badge/Hosting-GitHub_Pages-222?logo=github" />
-  </p>
-</details>
+
 
 ---
 
-### 📦 Projects (Spotlight)
+### 🕹️ Projects (Spotlight)
 | Project | Focus | Status |
 |---------|-------|--------|
 | BoxCraft | World generation & interaction | 🚧 Active |
@@ -99,11 +91,13 @@ sai@dev-machine:~$ motto
 </p>
 
 ---
-### 📬 Contact
+### ☎️ Contact
 <p>
   <a href="mailto:youremail@example.com"><img src="https://img.shields.io/badge/Email-Contact-informational?logo=gmail&logoColor=white&color=11847f" /></a>
   <a href="https://www.linkedin.com/in/your-linkedin/"><img src="https://img.shields.io/badge/LinkedIn-Network-15a2b2?logo=linkedin&logoColor=white" /></a>
+  <a href="https://discordapp.com/users/YOUR_DISCORD_ID"><img src="https://img.shields.io/badge/Discord-Chat-5865F2?logo=discord&logoColor=white" /></a>
 </p>
+<!-- Replace YOUR_DISCORD_ID with your numeric Discord user ID (Enable Developer Mode in Discord > right-click your profile > Copy User ID). -->
 
 <p align="center">
   <img src="assets/konosuba_dance.gif" alt="Konosuba dance" height="400" />
