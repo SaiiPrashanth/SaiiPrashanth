@@ -1,20 +1,32 @@
 name: Metrics
 
+# Runs daily; also can be triggered manually from the Actions tab.
 on:
   schedule:
     - cron: '0 3 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write   # needed to commit the generated svg
+  actions: read
+
+concurrency:
+  group: metrics-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Checkout
+      - name: Checkout (shallow)
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Generate GitHub Metrics
         uses: lowlighter/metrics@latest
         with:
-          token: ${{ secrets.METRICS_TOKEN }}
+          token: ${{ secrets.METRICS_TOKEN }} # PAT with repo + read:user
           user: SaiiPrashanth
           template: classic
           filename: github-metrics.svg
@@ -30,3 +42,6 @@ jobs:
           plugin_followup: yes
           plugin_followup_sections: repositories, user
           plugin_traffic: yes
+      - name: Confirm file
+        run: |
+          ls -l github-metrics.svg || (echo 'metrics file missing' && exit 1)
