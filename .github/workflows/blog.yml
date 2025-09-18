@@ -1,0 +1,20 @@
+name: Update blog posts
+on:
+  schedule:
+    - cron: '0 */6 * * *' # every 6 hours
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update-blog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update README with latest blog posts
+        uses: gautamkrishnar/blog-post-workflow@v1
+        with:
+          feed_list: "https://dev.to/feed/yourhandle"
+          max_post_count: 5
+          commit_message: "chore: update blog posts"
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
