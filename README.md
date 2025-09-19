@@ -1,9 +1,5 @@
-<!-- Alternate Profile README Inspired Layout -->
-
-
 
 <p align="center">
-  <!-- Updated theme tokens to match cyberpunk theme: neon cyan/magenta/yellow -->
 <a href="https://github.com/kawarimidoll/typograssy">
     <img alt="HELLO WORLD !" src="https://typograssy.deno.dev/api?text=Hello!%20i%20am%20Sai,%20Nice%20to%20meet%20ya%20.%20&l0=none&l1=00ffff&l2=ff00ff&l3=ffff00&l4=8a2be2&bg=none&frame=none&speed=80&comment=">
   </a>
@@ -62,9 +58,7 @@
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&weight=900&size=28&duration=4000&pause=1500&color=00FFFF&background=00000000&center=true&vCenter=true&width=435&lines=📊+Activity+%26+Metrics" alt="Activity & Metrics" />
 </p>
-<!--p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=SaiiPrashanth&show_icons=true&theme=synthwave&hide_border=true&border_radius=10" alt="GitHub Stats" height="180" />
-</p-->
+
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SaiiPrashanth&layout=compact&theme=vision-friendly-dark&hide_border=true&border_radius=10&bg_color=0a0a0a&title_color=00ffff&text_color=ffffff&icon_color=ff00ff" alt="Top Languages" height="160" />
@@ -75,17 +69,17 @@
 </p>
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=SaiiPrashanth&custom_title=Cyberpunk%20Neural%20Network&bg_color=0a0a0a&color=00ffff&line=ff00ff&point=ffff00&area=true&hide_border=true&radius=10" alt="Contribution Graph" />
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=SaiiPrashanth&custom_title=Contribution%20Graph&bg_color=0a0a0a&color=00ffff&line=ff00ff&point=ffff00&area=true&hide_border=true&radius=10" alt="Contribution Graph" />
 </p>
 
 ---
 
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&weight=900&size=28&duration=4000&pause=1500&color=00FFFF&background=00000000&center=true&vCenter=true&width=435&lines=🐍+Contribution+Visualization" alt="Contribution Visualization" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&weight=900&size=28&duration=4000&pause=1500&color=00FFFF&background=00000000&center=true&vCenter=true&width=500&lines=🐍+Contribution+Visualization" alt="Contribution Visualization" />
 </p>
 <!-- Snake (enable workflow first) -->
 <p align="center">
-  <img src="https://raw.githubusercontent.com/SaiiPrashanth/SaiiPrashanth/output/github-contribution-grid-snake.svg" alt="snake" />
+  <img src="https://raw.githubusercontent.com/SaiiPrashanth/SaiiPrashanth/output/github-contribution-grid-snake-dark.svg" alt="snake" />
 </p>
 
 ---
