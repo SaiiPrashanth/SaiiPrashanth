@@ -25,6 +25,7 @@ jobs:
           github_user_name: SaiiPrashanth
           outputs: |
             dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=%2300FFFF&color_dots=%23FF00FF,%23FFFF00,%2300FFFF,%23FF1493,%2300FF00
       - name: List generated files
         run: |
           ls -R dist || (echo 'dist missing' && exit 1)
