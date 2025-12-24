@@ -61,11 +61,11 @@
 
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SaiiPrashanth&layout=compact&theme=vision-friendly-dark&hide_border=true&border_radius=10&bg_color=0a0a0a&title_color=00ffff&text_color=ffffff&icon_color=ff00ff" alt="Top Languages" height="160" />
+  <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=SaiiPrashanth&layout=compact&theme=vision-friendly-dark&hide_border=true&border_radius=10&bg_color=0a0a0a&title_color=00ffff&text_color=ffffff&icon_color=ff00ff" alt="Top Languages" height="160" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SaiiPrashanth&theme=neon&hide_border=true&border_radius=10" alt="GitHub Streak" height="180" />
+  <img src="https://streak-stats.demolab.com?user=SaiiPrashanth&theme=neon&hide_border=true&border_radius=10" alt="GitHub Streak" height="180" />
 </p>
 
 <p align="center">
