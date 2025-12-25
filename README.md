@@ -61,7 +61,7 @@
 
 
 <p align="center">
-  <img src="https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=SaiiPrashanth&layout=compact&theme=vision-friendly-dark&hide_border=true&border_radius=10&bg_color=0a0a0a&title_color=00ffff&text_color=ffffff&icon_color=ff00ff" alt="Top Languages" height="160" />
+  <img src="assets/top-languages.svg" alt="Top Languages" height="160" />
 </p>
 
 <p align="center">
@@ -69,7 +69,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=SaiiPrashanth&custom_title=Contribution%20Graph&bg_color=0a0a0a&color=00ffff&line=ff00ff&point=ffff00&area=true&hide_border=true&radius=10" alt="Contribution Graph" />
+  <img src="assets/contribution-graph.svg" alt="Contribution Graph" />
 </p>
 
 ---
