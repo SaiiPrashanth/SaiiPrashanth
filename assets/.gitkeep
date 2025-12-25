@@ -1,0 +1,2 @@
+# This file ensures the assets directory is tracked by git
+# The github-streak.svg file will be generated here by GitHub Actions
