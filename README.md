@@ -65,7 +65,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/github-streak.svg" alt="GitHub Streak" height="180" />
+  <img src="https://raw.githubusercontent.com/SaiiPrashanth/SaiiPrashanth/main/assets/github-streak.svg" alt="GitHub Streak" height="180" />
 </p>
 
 <p align="center">
