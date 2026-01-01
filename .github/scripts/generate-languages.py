@@ -93,11 +93,11 @@ def generate_svg(languages, colors, top_n=5):
             "color": colors.get(lang, "#858585")
         })
     
-    # SVG dimensions - matching original compact size
-    width = 560
-    height = 180
-    bar_height = 14
-    bar_y = 55
+    # SVG dimensions - smaller to match streak card size
+    width = 495
+    height = 165
+    bar_height = 10
+    bar_y = 50
     
     # Start building SVG - horizontal stacked bar
     svg_parts = [
@@ -111,14 +111,14 @@ def generate_svg(languages, colors, top_n=5):
         "    </defs>",
         f"    <rect width='{width}' height='{height}' rx='10' fill='#0a0a0a'/>",
         "    ",
-        f"    <text x='30' y='35' class='title'>Most Used Languages</text>",
+        f"    <text x='25' y='32' class='title'>Most Used Languages</text>",
         "    ",
         "    <!-- Horizontal stacked bar -->"
     ]
     
     # Create horizontal stacked bar
-    x_offset = 30
-    bar_width = 500
+    x_offset = 25
+    bar_width = 445
     
     for lang in lang_stats:
         segment_width = bar_width * (lang["percentage"] / 100)
@@ -129,9 +129,9 @@ def generate_svg(languages, colors, top_n=5):
     svg_parts.append("    <!-- Legend -->")
     
     # Create legend below bar - 2 columns
-    legend_y = bar_y + bar_height + 20
-    legend_x = 30
-    column_width = 180
+    legend_y = bar_y + bar_height + 18
+    legend_x = 25
+    column_width = 170
     
     for i, lang in enumerate(lang_stats):
         row = i // 2

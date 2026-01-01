@@ -82,13 +82,13 @@ def generate_svg(calendar):
     for week in weeks:
         all_days.extend(week["contributionDays"])
     
-    # SVG dimensions - wider aspect ratio
+    # SVG dimensions - wider and flatter aspect ratio to match original
     width = 1040
-    height = 350
+    height = 260
     padding_left = 60
     padding_right = 30
-    padding_top = 50
-    padding_bottom = 35
+    padding_top = 45
+    padding_bottom = 30
     
     graph_width = width - padding_left - padding_right
     graph_height = height - padding_top - padding_bottom
@@ -129,8 +129,8 @@ def generate_svg(calendar):
         "        <style>",
         "            .title { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 18px; font-weight: 600; }",
         "            .axis-label { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 12px; }",
-        "            .tick-label { fill: #888888; font-family: 'Segoe UI', Ubuntu, monospace; font-size: 10px; }",
-        "            .grid-line { stroke: #2a2a2a; stroke-width: 1; }",
+        "            .tick-label { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, monospace; font-size: 10px; }",
+        "            .grid-line { stroke: #1a1a1a; stroke-width: 1; stroke-opacity: 0.5; }",
         "        </style>",
         "    </defs>",
         f"    <rect width='{width}' height='{height}' rx='10' fill='#0a0a0a'/>",
@@ -148,19 +148,21 @@ def generate_svg(calendar):
         svg_parts.append(f"    <line x1='{padding_left}' y1='{y}' x2='{padding_left + graph_width}' y2='{y}' class='grid-line'/>")
         svg_parts.append(f"    <text x='{padding_left - 10}' y='{y + 4}' class='tick-label' text-anchor='end'>{value}</text>")
     
-    # Draw vertical grid lines (every ~30 days)
-    num_x_lines = 13
+    # Draw vertical grid lines and X-axis labels (show actual days with contributions or regular intervals)
     svg_parts.append("    ")
-    for i in range(num_x_lines):
-        x = padding_left + (i / (num_x_lines - 1)) * graph_width
-        svg_parts.append(f"    <line x1='{x}' y1='{padding_top}' x2='{x}' y2='{baseline_y}' class='grid-line'/>")
-        # Add day number below
+    
+    # Show x-axis labels at regular intervals showing day of month
+    label_interval = max(len(all_days) // 30, 1)  # Roughly every ~30 days worth of data
+    for i in range(0, len(all_days), label_interval):
         if i < len(all_days):
-            day_index = int((i / (num_x_lines - 1)) * (len(all_days) - 1))
-            if day_index < len(all_days):
-                date = datetime.strptime(all_days[day_index]["date"], "%Y-%m-%d")
-                day_label = date.day
-                svg_parts.append(f"    <text x='{x}' y='{baseline_y + 20}' class='tick-label' text-anchor='middle'>{day_label}</text>")
+            x = padding_left + (i / max(len(all_days) - 1, 1)) * graph_width
+            date = datetime.strptime(all_days[i]["date"], "%Y-%m-%d")
+            day_label = date.day
+            
+            # Draw vertical grid line
+            svg_parts.append(f"    <line x1='{x}' y1='{padding_top}' x2='{x}' y2='{baseline_y}' class='grid-line'/>")
+            # Add day number below
+            svg_parts.append(f"    <text x='{x}' y='{baseline_y + 20}' class='tick-label' text-anchor='middle'>{day_label}</text>")
     
     # Y-axis label
     svg_parts.extend([
