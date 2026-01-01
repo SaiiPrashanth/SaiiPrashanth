@@ -82,13 +82,13 @@ def generate_svg(calendar):
     for week in weeks:
         all_days.extend(week["contributionDays"])
     
-    # SVG dimensions - wider and flatter aspect ratio to match original
+    # SVG dimensions - taller for better visibility
     width = 1040
-    height = 260
+    height = 280
     padding_left = 60
     padding_right = 30
     padding_top = 45
-    padding_bottom = 30
+    padding_bottom = 35
     
     graph_width = width - padding_left - padding_right
     graph_height = height - padding_top - padding_bottom
@@ -130,7 +130,7 @@ def generate_svg(calendar):
         "            .title { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 18px; font-weight: 600; }",
         "            .axis-label { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 12px; }",
         "            .tick-label { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, monospace; font-size: 10px; }",
-        "            .grid-line { stroke: #1a1a1a; stroke-width: 1; stroke-opacity: 0.5; }",
+        "            .grid-line { stroke: #1a1a1a; stroke-width: 1; stroke-opacity: 0.5; stroke-dasharray: 2,3; }",
         "        </style>",
         "    </defs>",
         f"    <rect width='{width}' height='{height}' rx='10' fill='#0a0a0a'/>",
@@ -148,15 +148,19 @@ def generate_svg(calendar):
         svg_parts.append(f"    <line x1='{padding_left}' y1='{y}' x2='{padding_left + graph_width}' y2='{y}' class='grid-line'/>")
         svg_parts.append(f"    <text x='{padding_left - 10}' y='{y + 4}' class='tick-label' text-anchor='end'>{value}</text>")
     
-    # Draw vertical grid lines and X-axis labels (show actual days with contributions or regular intervals)
+    # Draw vertical grid lines and X-axis labels (show last 30 days)
     svg_parts.append("    ")
     
-    # Show x-axis labels at regular intervals showing day of month
-    label_interval = max(len(all_days) // 30, 1)  # Roughly every ~30 days worth of data
-    for i in range(0, len(all_days), label_interval):
-        if i < len(all_days):
-            x = padding_left + (i / max(len(all_days) - 1, 1)) * graph_width
-            date = datetime.strptime(all_days[i]["date"], "%Y-%m-%d")
+    # Get only the last 30 days from data
+    last_30_days = all_days[-30:] if len(all_days) >= 30 else all_days
+    
+    # Show labels every few days for readability
+    for i in range(0, len(last_30_days), 3):  # Every 3 days
+        if i < len(last_30_days):
+            # Calculate x position based on last 30 days
+            actual_index = len(all_days) - len(last_30_days) + i
+            x = padding_left + (actual_index / max(len(all_days) - 1, 1)) * graph_width
+            date = datetime.strptime(last_30_days[i]["date"], "%Y-%m-%d")
             day_label = date.day
             
             # Draw vertical grid line
