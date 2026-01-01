@@ -73,7 +73,7 @@ def get_color_for_count(count, max_count):
         return "#ff00ff"  # Magenta
 
 def generate_svg(calendar):
-    """Generate SVG with contribution graph (line chart style)."""
+    """Generate SVG with contribution graph - line chart with grid."""
     weeks = calendar["weeks"]
     total_contributions = calendar["totalContributions"]
     
@@ -82,13 +82,13 @@ def generate_svg(calendar):
     for week in weeks:
         all_days.extend(week["contributionDays"])
     
-    # SVG dimensions (matching original)
+    # SVG dimensions
     width = 800
-    height = 200
-    padding_left = 40
+    height = 400
+    padding_left = 50
     padding_right = 40
-    padding_top = 50
-    padding_bottom = 50
+    padding_top = 60
+    padding_bottom = 40
     
     graph_width = width - padding_left - padding_right
     graph_height = height - padding_top - padding_bottom
@@ -97,74 +97,94 @@ def generate_svg(calendar):
     # Find max contribution for scaling
     max_count = max((day["contributionCount"] for day in all_days), default=1)
     if max_count == 0:
-        max_count = 1
+        max_count = 10
+    # Round up to next multiple of 5 for nice grid
+    y_max = ((max_count // 5) + 1) * 5
     
     # Calculate points for line
     points = []
     for i, day in enumerate(all_days):
-        x = padding_left + (i / len(all_days)) * graph_width
-        # Scale y: 0 contributions = baseline, max = top
-        y = baseline_y - (day["contributionCount"] / max_count) * graph_height
-        points.append((x, y))
+        x = padding_left + (i / max(len(all_days) - 1, 1)) * graph_width
+        y = baseline_y - (day["contributionCount"] / y_max) * graph_height
+        points.append((x, y, day["contributionCount"]))
     
     # Build path for area fill
     area_path = f"M {padding_left} {baseline_y} "
-    for x, y in points:
+    for x, y, _ in points:
         area_path += f"L {x} {y} "
     area_path += f"L {padding_left + graph_width} {baseline_y} Z"
     
     # Build path for line
     line_path = " ".join(f"L {x} {y}" if i > 0 else f"M {x} {y}" 
-                         for i, (x, y) in enumerate(points))
+                         for i, (x, y, _) in enumerate(points))
     
-    # Find peak points for highlighting
-    peak_threshold = max_count * 0.7
-    peaks = [(x, y, all_days[i]) for i, (x, y) in enumerate(points) 
-             if all_days[i]["contributionCount"] >= peak_threshold and all_days[i]["contributionCount"] > 0]
-    
-    # Get first and last dates
-    first_date = datetime.strptime(all_days[0]["date"], "%Y-%m-%d").strftime("%b %d")
-    last_date = datetime.strptime(all_days[-1]["date"], "%Y-%m-%d").strftime("%b %d")
-    
-    # Start building SVG (matching original structure)
+    # Start building SVG with grid
     svg_parts = [
         f"<svg xmlns='http://www.w3.org/2000/svg' width='{width}' height='{height}' viewBox='0 0 {width} {height}'>",
         "    <defs>",
         "        <linearGradient id='gradient' x1='0%' y1='0%' x2='0%' y2='100%'>",
-        "            <stop offset='0%' style='stop-color:#ff00ff;stop-opacity:0.3'/>",
+        "            <stop offset='0%' style='stop-color:#ff00ff;stop-opacity:0.4'/>",
         "            <stop offset='100%' style='stop-color:#ff00ff;stop-opacity:0.05'/>",
         "        </linearGradient>",
         "        <style>",
         "            .title { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 18px; font-weight: 600; }",
-        "            .stat { fill: #ffffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 14px; }",
+        "            .axis-label { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 12px; }",
+        "            .tick-label { fill: #888888; font-family: 'Segoe UI', Ubuntu, monospace; font-size: 10px; }",
+        "            .grid-line { stroke: #2a2a2a; stroke-width: 1; }",
         "        </style>",
         "    </defs>",
-        "    ",
         f"    <rect width='{width}' height='{height}' rx='10' fill='#0a0a0a'/>",
         "    ",
-        f"    <text x='20' y='25' class='title'>Contribution Graph</text>",
-        f"    <text x='780' y='25' class='stat' text-anchor='end'>Total: {total_contributions}</text>",
+        f"    <text x='{width/2}' y='30' class='title' text-anchor='middle'>Contribution Graph</text>",
+        "    ",
+        "    <!-- Grid lines -->"
+    ]
+    
+    # Draw horizontal grid lines and Y-axis labels
+    num_y_lines = 8
+    for i in range(num_y_lines):
+        y = baseline_y - (i / (num_y_lines - 1)) * graph_height
+        value = int((i / (num_y_lines - 1)) * y_max)
+        svg_parts.append(f"    <line x1='{padding_left}' y1='{y}' x2='{padding_left + graph_width}' y2='{y}' class='grid-line'/>")
+        svg_parts.append(f"    <text x='{padding_left - 10}' y='{y + 4}' class='tick-label' text-anchor='end'>{value}</text>")
+    
+    # Draw vertical grid lines (every ~30 days)
+    num_x_lines = 13
+    svg_parts.append("    ")
+    for i in range(num_x_lines):
+        x = padding_left + (i / (num_x_lines - 1)) * graph_width
+        svg_parts.append(f"    <line x1='{x}' y1='{padding_top}' x2='{x}' y2='{baseline_y}' class='grid-line'/>")
+        # Add day number below
+        if i < len(all_days):
+            day_index = int((i / (num_x_lines - 1)) * (len(all_days) - 1))
+            if day_index < len(all_days):
+                date = datetime.strptime(all_days[day_index]["date"], "%Y-%m-%d")
+                day_label = date.day
+                svg_parts.append(f"    <text x='{x}' y='{baseline_y + 20}' class='tick-label' text-anchor='middle'>{day_label}</text>")
+    
+    # Y-axis label
+    svg_parts.extend([
+        "    ",
+        f"    <text x='15' y='{(padding_top + baseline_y) / 2}' class='axis-label' text-anchor='middle' transform='rotate(-90, 15, {(padding_top + baseline_y) / 2})'>Contributions</text>",
+        "    ",
+        "    <!-- X-axis label (Days) -->",
+        f"    <text x='{padding_left + graph_width/2}' y='{height - 10}' class='tick-label' text-anchor='middle'>Days</text>",
         "    ",
         "    <!-- Area fill -->",
         f"    <path d='{area_path}' fill='url(#gradient)'/>",
         "    ",
         "    <!-- Line -->",
-        f"    <path d='{line_path}' fill='none' stroke='#ff00ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/>",
-        "    "
-    ]
-    
-    # Add peak points
-    if peaks:
-        svg_parts.append("    <!-- Points -->")
-        for x, y, day in peaks[:4]:  # Show up to 4 peaks
-            svg_parts.append(f"    <circle cx='{x}' cy='{y}' r='3' fill='#ffff00'/>")
-    
-    # Add date labels
-    svg_parts.extend([
-        f"    <text x='40' y='190' fill='#888888' font-size='11px' font-family='monospace'>{first_date}</text>",
-        f"    <text x='760' y='190' fill='#888888' font-size='11px' font-family='monospace' text-anchor='end'>{last_date}</text>",
-        "</svg>"
+        f"    <path d='{line_path}' fill='none' stroke='#ff00ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/>",
+        "    ",
+        "    <!-- Data points -->"
     ])
+    
+    # Add yellow dots at all points with contributions
+    for x, y, count in points:
+        if count > 0:
+            svg_parts.append(f"    <circle cx='{x}' cy='{y}' r='2.5' fill='#ffff00'/>")
+    
+    svg_parts.append("</svg>")
     
     return '\n'.join(svg_parts)
 

@@ -78,8 +78,8 @@ def get_repository_languages(username, token):
     
     return all_languages, language_colors
 
-def generate_svg(languages, colors, top_n=8):
-    """Generate SVG with top languages statistics."""
+def generate_svg(languages, colors, top_n=5):
+    """Generate SVG with top languages statistics - horizontal bar chart style."""
     total_size = sum(languages.values())
     sorted_langs = sorted(languages.items(), key=lambda x: x[1], reverse=True)[:top_n]
     
@@ -93,39 +93,58 @@ def generate_svg(languages, colors, top_n=8):
             "color": colors.get(lang, "#858585")
         })
     
-    # SVG dimensions and layout (matching original)
-    width = 300
+    # SVG dimensions
+    width = 600
     height = 200
-    padding = 20
-    spacing = 25
+    bar_height = 20
+    bar_y = 60
     
-    # Start building SVG (matching original structure)
+    # Start building SVG - horizontal stacked bar
     svg_parts = [
         f"<svg xmlns='http://www.w3.org/2000/svg' width='{width}' height='{height}' viewBox='0 0 {width} {height}'>",
         "    <defs>",
         "        <style>",
-        "            .header { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 16px; font-weight: 600; }",
+        "            .title { fill: #00ffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 18px; font-weight: 600; }",
         "            .lang-name { fill: #ffffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 12px; }",
-        "            .lang-percent { fill: #888888; font-family: 'Segoe UI', Ubuntu, monospace; font-size: 11px; }",
+        "            .lang-percent { fill: #ffffff; font-family: 'Segoe UI', Ubuntu, sans-serif; font-size: 11px; }",
         "        </style>",
         "    </defs>",
         f"    <rect width='{width}' height='{height}' rx='10' fill='#0a0a0a'/>",
         "    ",
-        f"    <text x='20' y='30' class='header'>Top Languages</text>"
+        f"    <text x='30' y='35' class='title'>Most Used Languages</text>",
+        "    ",
+        "    <!-- Horizontal stacked bar -->"
     ]
     
-    y_offset = 52  # Starting y position for first language
+    # Create horizontal stacked bar
+    x_offset = 30
+    bar_width = 540
+    
+    for lang in lang_stats:
+        segment_width = bar_width * (lang["percentage"] / 100)
+        svg_parts.append(f"    <rect x='{x_offset}' y='{bar_y}' width='{segment_width}' height='{bar_height}' fill='{lang['color']}'/>")
+        x_offset += segment_width
+    
+    svg_parts.append("    ")
+    svg_parts.append("    <!-- Legend -->")
+    
+    # Create legend below bar
+    legend_y = bar_y + bar_height + 25
+    legend_x = 30
+    column_width = 120
     
     for i, lang in enumerate(lang_stats):
+        row = i // 3
+        col = i % 3
+        x = legend_x + (col * column_width)
+        y = legend_y + (row * 20)
+        
         svg_parts.extend([
             "    <g>",
-            f"        <circle cx='25' cy='{y_offset}' r='4' fill='{lang['color']}'/>",
-            f"        <text x='35' y='{y_offset + 3}' class='lang-name'>{lang['name']}</text>",
-            f"        <text x='280' y='{y_offset + 3}' class='lang-percent' text-anchor='end'>{lang['percentage']:.1f}%</text>",
+            f"        <circle cx='{x}' cy='{y}' r='4' fill='{lang['color']}'/>",
+            f"        <text x='{x + 10}' y='{y + 4}' class='lang-name'>{lang['name']} {lang['percentage']:.2f}%</text>",
             "    </g>"
         ])
-        
-        y_offset += spacing
     
     svg_parts.append("</svg>")
     
