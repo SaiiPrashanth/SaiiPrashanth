@@ -34,9 +34,8 @@ jobs:
           mkdir -p output
 
       - name: Generate Top Languages Card
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python .github/scripts/generate-languages.py
+        run: |
+          curl -o assets/top-languages.svg "https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=SaiiPrashanth&layout=compact&theme=vision-friendly-dark&hide_border=true&border_radius=10&bg_color=0a0a0a&title_color=00ffff&text_color=ffffff&icon_color=ff00ff"
 
       - name: Generate Streak Stats
         env:
@@ -44,9 +43,8 @@ jobs:
         run: python .github/scripts/generate-streak.py
 
       - name: Generate Contribution Graph
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python .github/scripts/generate-contribution-graph.py
+        run: |
+          curl -o assets/contribution-graph.svg "https://github-readme-activity-graph.vercel.app/graph?username=SaiiPrashanth&custom_title=Contribution%20Graph&bg_color=0a0a0a&color=00ffff&line=ff00ff&point=ffff00&area=true&hide_border=true&radius=10"
 
       - name: Generate Snake Animation
         uses: Platane/snk@v3
