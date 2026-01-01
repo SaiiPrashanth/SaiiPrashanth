@@ -82,13 +82,13 @@ def generate_svg(calendar):
     for week in weeks:
         all_days.extend(week["contributionDays"])
     
-    # SVG dimensions
-    width = 800
-    height = 400
-    padding_left = 50
-    padding_right = 40
-    padding_top = 60
-    padding_bottom = 40
+    # SVG dimensions - wider aspect ratio
+    width = 1040
+    height = 350
+    padding_left = 60
+    padding_right = 30
+    padding_top = 50
+    padding_bottom = 35
     
     graph_width = width - padding_left - padding_right
     graph_height = height - padding_top - padding_bottom

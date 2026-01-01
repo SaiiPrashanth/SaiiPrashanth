@@ -93,11 +93,11 @@ def generate_svg(languages, colors, top_n=5):
             "color": colors.get(lang, "#858585")
         })
     
-    # SVG dimensions
-    width = 600
-    height = 200
-    bar_height = 20
-    bar_y = 60
+    # SVG dimensions - matching original compact size
+    width = 560
+    height = 180
+    bar_height = 14
+    bar_y = 55
     
     # Start building SVG - horizontal stacked bar
     svg_parts = [
@@ -118,7 +118,7 @@ def generate_svg(languages, colors, top_n=5):
     
     # Create horizontal stacked bar
     x_offset = 30
-    bar_width = 540
+    bar_width = 500
     
     for lang in lang_stats:
         segment_width = bar_width * (lang["percentage"] / 100)
@@ -128,16 +128,16 @@ def generate_svg(languages, colors, top_n=5):
     svg_parts.append("    ")
     svg_parts.append("    <!-- Legend -->")
     
-    # Create legend below bar
-    legend_y = bar_y + bar_height + 25
+    # Create legend below bar - 2 columns
+    legend_y = bar_y + bar_height + 20
     legend_x = 30
-    column_width = 120
+    column_width = 180
     
     for i, lang in enumerate(lang_stats):
-        row = i // 3
-        col = i % 3
+        row = i // 2
+        col = i % 2
         x = legend_x + (col * column_width)
-        y = legend_y + (row * 20)
+        y = legend_y + (row * 22)
         
         svg_parts.extend([
             "    <g>",
