@@ -55,7 +55,7 @@
                 </g>
                 <g transform='translate(247.5, 145)'>
                     <text x='0' y='21' text-anchor='middle' fill='#ffffff' font-family='"Segoe UI", Ubuntu, sans-serif' font-weight='400' font-size='12px' style='opacity: 0; animation: fadein 0.5s linear forwards 0.9s'>
-                        Feb 19 - Feb 20
+                         - 
                     </text>
                 </g>
                 <g mask='url(#mask_out_ring_behind_fire)'>
@@ -67,7 +67,7 @@
                 </g>
                 <g transform='translate(247.5, 48)'>
                     <text x='0' y='32' text-anchor='middle' fill='#ff00ff' font-family='"Segoe UI", Ubuntu, sans-serif' font-weight='700' font-size='28px' style='animation: currstreak 0.6s linear forwards'>
-                        2
+                        0
                     </text>
                 </g>
             </g>
