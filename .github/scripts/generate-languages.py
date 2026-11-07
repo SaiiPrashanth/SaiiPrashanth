@@ -60,7 +60,7 @@ def generate_svg(languages):
     for index, (language, value) in enumerate(languages):
         percent = value / total * 100
         x = 24 + (index % 3) * 150
-        y = 93 + (index // 3) * 28
+        y = 86 + (index // 3) * 25
         color = COLORS[index % len(COLORS)]
         labels.append(
             f"<circle cx='{x}' cy='{y - 4}' r='4' fill='{color}'/>"
@@ -69,8 +69,8 @@ def generate_svg(languages):
         )
 
     return (
-        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 495 145' width='495' "
-        "height='145'><rect width='100%' height='100%' rx='10' fill='#0a0a0a' "
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 495 120' width='495' "
+        "height='120'><rect width='100%' height='100%' rx='10' fill='#0a0a0a' "
         "stroke='#30363d'/><text x='24' y='30' fill='#00ffff' font-family='Segoe UI, "
         "sans-serif' font-size='16' font-weight='600'>Top Languages</text>"
         f"{''.join(rows)}{''.join(labels)}</svg>"
