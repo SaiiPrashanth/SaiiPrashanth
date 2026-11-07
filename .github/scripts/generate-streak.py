@@ -290,11 +290,7 @@ def main():
         
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(svg)
-        with open("assets/contribution-graph.svg", "w", encoding="utf-8") as f:
-            f.write(generate_contribution_graph(calendar))
-        
         print(f"Streak stats saved to {output_path}")
-        print("Contribution graph saved to assets/contribution-graph.svg")
         
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)

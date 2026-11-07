@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="90" viewBox="0 0 700 90">
+  <defs>
+    <linearGradient id="text" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00ffff"/>
+      <stop offset="50%" stop-color="#ff00ff"/>
+      <stop offset="100%" stop-color="#ffff00"/>
+      <animate attributeName="x1" values="0%;100%;0%" dur="5s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="100%;0%;100%" dur="5s" repeatCount="indefinite"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="700" height="90" fill="none"/>
+  <text x="350" y="42" text-anchor="middle" fill="url(#text)" filter="url(#glow)"
+        font-family="Segoe UI, sans-serif" font-size="30" font-weight="700"
+        letter-spacing="2">HELLO WORLD!</text>
+  <text x="350" y="70" text-anchor="middle" fill="#ffffff"
+        font-family="Segoe UI, sans-serif" font-size="14">Hello! i am Sai, Nice to meet ya .</text>
+</svg>

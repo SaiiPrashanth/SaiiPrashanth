@@ -1,7 +1,8 @@
 
 <p align="center">
-  <h1>HELLO WORLD!</h1>
-  <p><strong>Hello! I am Sai, nice to meet you.</strong></p>
+  <a href="https://github.com/kawarimidoll/typograssy">
+    <img alt="HELLO WORLD !" src="assets/hello-world.svg">
+  </a>
 </p>
 
 
@@ -102,5 +103,4 @@
 </p>
 
 ---
-
 
