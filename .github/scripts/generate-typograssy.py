@@ -82,4 +82,4 @@ def generate():
 
 
 if __name__ == "__main__":
-    Path("assets/typograssy.svg").write_text(generate(), encoding="utf-8")
+    Path("assets/typograssy-pixel.svg").write_text(generate(), encoding="utf-8")

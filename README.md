@@ -1,7 +1,7 @@
 
 <p align="center">
 <a href="https://github.com/kawarimidoll/typograssy">
-    <img alt="HELLO WORLD !" src="assets/typograssy.svg">
+    <img alt="HELLO WORLD !" src="assets/typograssy-pixel.svg">
   </a>
 </p>
 
