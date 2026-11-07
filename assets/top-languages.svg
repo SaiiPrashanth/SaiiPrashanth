@@ -1,15 +1,1 @@
-
-    <svg width="495" height="120" viewBox="0 0 495 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <style>
-    .text { font: 600 16px 'Segoe UI', Ubuntu, Sans-Serif; fill: #2F80ED }
-    .small { font: 600 12px 'Segoe UI', Ubuntu, Sans-Serif; fill: #252525 }
-    .gray { fill: #858585 }
-    </style>
-    <rect x="0.5" y="0.5" width="494" height="99%" rx="4.5" fill="#FFFEFE" stroke="#E4E2E2"/>
-    <text x="25" y="45" class="text">Something went wrong! file an issue at https://git.io/JJmN9</text>
-    <text data-testid="message" x="25" y="55" class="text small">
-      <tspan x="25" dy="18">Maximum retries exceeded</tspan>
-      <tspan x="25" dy="18" class="gray">Please add an env variable called PAT_1 with your github token in vercel</tspan>
-    </text>
-    </svg>
-  
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 495 145' width='495' height='145'><rect width='100%' height='100%' rx='10' fill='#0a0a0a' stroke='#30363d'/><text x='24' y='30' fill='#00ffff' font-family='Segoe UI, sans-serif' font-size='16' font-weight='600'>Top Languages</text><rect x='24' y='54' width='137' height='8' fill='#00ffff'/><rect x='161' y='54' width='121' height='8' fill='#ff00ff'/><rect x='282' y='54' width='97' height='8' fill='#ffff00'/><rect x='379' y='54' width='34' height='8' fill='#8a2be2'/><rect x='413' y='54' width='32' height='8' fill='#39d353'/><rect x='445' y='54' width='26' height='8' fill='#58a6ff'/><circle cx='24' cy='89' r='4' fill='#00ffff'/><text x='34' y='93' fill='#ffffff' font-family='Segoe UI, sans-serif' font-size='12'>TypeScript 30.6%</text><circle cx='174' cy='89' r='4' fill='#ff00ff'/><text x='184' y='93' fill='#ffffff' font-family='Segoe UI, sans-serif' font-size='12'>C# 27.0%</text><circle cx='324' cy='89' r='4' fill='#ffff00'/><text x='334' y='93' fill='#ffffff' font-family='Segoe UI, sans-serif' font-size='12'>Svelte 21.8%</text><circle cx='24' cy='117' r='4' fill='#8a2be2'/><text x='34' y='121' fill='#ffffff' font-family='Segoe UI, sans-serif' font-size='12'>CSS 7.6%</text><circle cx='174' cy='117' r='4' fill='#39d353'/><text x='184' y='121' fill='#ffffff' font-family='Segoe UI, sans-serif' font-size='12'>C++ 7.2%</text><circle cx='324' cy='117' r='4' fill='#58a6ff'/><text x='334' y='121' fill='#ffffff' font-family='Segoe UI, sans-serif' font-size='12'>HTML 5.7%</text></svg>
