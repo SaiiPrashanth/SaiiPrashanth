@@ -201,6 +201,58 @@ def generate_svg(stats):
     
     return svg
 
+
+def generate_contribution_graph(calendar):
+    """Generate a self-contained contribution graph SVG."""
+    days = {
+        day["date"]: day["contributionCount"]
+        for week in calendar["weeks"]
+        for day in week["contributionDays"]
+    }
+    if not days:
+        raise ValueError("GitHub returned an empty contribution calendar")
+
+    start = min(datetime.strptime(date, "%Y-%m-%d").date() for date in days)
+    colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
+    cell_size = 12
+    gap = 3
+    left = 44
+    top = 32
+    rows = 7
+    columns = 53
+    width = left + columns * (cell_size + gap) + 12
+    height = top + rows * (cell_size + gap) + 28
+
+    parts = [
+        f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {width} {height}' "
+        f"width='{width}' height='{height}'>",
+        "<rect width='100%' height='100%' rx='10' fill='#0a0a0a'/>",
+        "<text x='16' y='20' fill='#00ffff' font-family='Segoe UI, sans-serif' "
+        "font-size='14' font-weight='600'>Contribution Graph</text>",
+    ]
+    for row, label in enumerate(("Mon", "Wed", "Fri")):
+        y = top + (row * 2 + 1) * (cell_size + gap) - 2
+        parts.append(
+            f"<text x='4' y='{y}' fill='#8b949e' font-family='Segoe UI, sans-serif' "
+            f"font-size='9'>{label}</text>"
+        )
+
+    for column in range(columns):
+        for row in range(rows):
+            date = start + timedelta(days=column * 7 + row)
+            count = days.get(date.isoformat(), 0)
+            level = min(4, (count + 1) // 2) if count else 0
+            x = left + column * (cell_size + gap)
+            y = top + row * (cell_size + gap)
+            parts.append(
+                f"<rect x='{x}' y='{y}' width='{cell_size}' height='{cell_size}' rx='2' "
+                f"fill='{colors[level]}'><title>{date.isoformat()}: {count} contributions"
+                "</title></rect>"
+            )
+
+    parts.append("</svg>")
+    return "".join(parts)
+
 def main():
     """Main function."""
     username = os.getenv("GITHUB_REPOSITORY", "").split("/")[0] or "SaiiPrashanth"
@@ -227,8 +279,11 @@ def main():
         
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(svg)
+        with open("assets/contribution-graph.svg", "w", encoding="utf-8") as f:
+            f.write(generate_contribution_graph(calendar))
         
-        print(f"✓ Streak stats saved to {output_path}")
+        print(f"Streak stats saved to {output_path}")
+        print("Contribution graph saved to assets/contribution-graph.svg")
         
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
