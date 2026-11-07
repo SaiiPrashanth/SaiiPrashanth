@@ -203,7 +203,7 @@ def generate_svg(stats):
 
 
 def generate_contribution_graph(calendar):
-    """Generate a self-contained contribution graph SVG."""
+    """Generate a self-contained activity line graph SVG."""
     days = {
         day["date"]: day["contributionCount"]
         for week in calendar["weeks"]
@@ -212,44 +212,55 @@ def generate_contribution_graph(calendar):
     if not days:
         raise ValueError("GitHub returned an empty contribution calendar")
 
-    start = min(datetime.strptime(date, "%Y-%m-%d").date() for date in days)
-    colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
-    cell_size = 12
-    gap = 3
-    left = 44
-    top = 32
-    rows = 7
-    columns = 53
-    width = left + columns * (cell_size + gap) + 12
-    height = top + rows * (cell_size + gap) + 28
+    dates = sorted(days)[-365:]
+    values = [days[date] for date in dates]
+    width = 495
+    height = 190
+    left = 34
+    right = 12
+    top = 38
+    bottom = 28
+    graph_width = width - left - right
+    graph_height = height - top - bottom
+    max_value = max(values) or 1
+    points = []
+    for index, value in enumerate(values):
+        x = left + index * graph_width / max(1, len(values) - 1)
+        y = top + graph_height - value * graph_height / max_value
+        points.append((x, y))
+    line = " ".join(f"{x:.1f},{y:.1f}" for x, y in points)
+    area = f"{left},{top + graph_height} {line} {left + graph_width},{top + graph_height}"
 
     parts = [
-        f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {width} {height}' "
-        f"width='{width}' height='{height}'>",
+        f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 {width} {height}' width='{width}' height='{height}'>",
         "<rect width='100%' height='100%' rx='10' fill='#0a0a0a'/>",
-        "<text x='16' y='20' fill='#00ffff' font-family='Segoe UI, sans-serif' "
-        "font-size='14' font-weight='600'>Contribution Graph</text>",
+        "<text x='18' y='24' fill='#00ffff' font-family='Segoe UI, sans-serif' font-size='15' "
+        "font-weight='600'>Contribution Graph</text>",
     ]
-    for row, label in enumerate(("Mon", "Wed", "Fri")):
-        y = top + (row * 2 + 1) * (cell_size + gap) - 2
+    for index in range(5):
+        y = top + index * graph_height / 4
         parts.append(
-            f"<text x='4' y='{y}' fill='#8b949e' font-family='Segoe UI, sans-serif' "
-            f"font-size='9'>{label}</text>"
+            f"<line x1='{left}' y1='{y:.1f}' x2='{left + graph_width}' y2='{y:.1f}' "
+            "stroke='#30363d' stroke-width='1'/>"
         )
-
-    for column in range(columns):
-        for row in range(rows):
-            date = start + timedelta(days=column * 7 + row)
-            count = days.get(date.isoformat(), 0)
-            level = min(4, (count + 1) // 2) if count else 0
-            x = left + column * (cell_size + gap)
-            y = top + row * (cell_size + gap)
-            parts.append(
-                f"<rect x='{x}' y='{y}' width='{cell_size}' height='{cell_size}' rx='2' "
-                f"fill='{colors[level]}'><title>{date.isoformat()}: {count} contributions"
-                "</title></rect>"
-            )
-
+    parts.append(f"<polygon points='{area}' fill='#ff00ff' fill-opacity='0.16'/>")
+    parts.append(
+        f"<polyline points='{line}' fill='none' stroke='#ff00ff' stroke-width='2' "
+        "stroke-linejoin='round'/>"
+    )
+    for index in range(0, len(points), max(1, len(points) // 8)):
+        x, y = points[index]
+        parts.append(
+            f"<circle cx='{x:.1f}' cy='{y:.1f}' r='2.5' fill='#ffff00'><title>"
+            f"{dates[index]}: {values[index]} contributions</title></circle>"
+        )
+    for index in range(0, len(dates), max(1, len(dates) // 6)):
+        x = left + index * graph_width / max(1, len(dates) - 1)
+        label = datetime.strptime(dates[index], "%Y-%m-%d").strftime("%b")
+        parts.append(
+            f"<text x='{x:.1f}' y='{height - 8}' text-anchor='middle' fill='#8b949e' "
+            f"font-family='Segoe UI, sans-serif' font-size='9'>{label}</text>"
+        )
     parts.append("</svg>")
     return "".join(parts)
 

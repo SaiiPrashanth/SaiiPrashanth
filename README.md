@@ -1,8 +1,7 @@
 
 <p align="center">
-<a href="https://github.com/kawarimidoll/typograssy">
-    <img alt="HELLO WORLD !" src="https://typograssy.deno.dev/api?text=Hello!%20i%20am%20Sai,%20Nice%20to%20meet%20ya%20.%20&l0=none&l1=00ffff&l2=ff00ff&l3=ffff00&l4=8a2be2&bg=none&frame=none&speed=80&comment=">
-  </a>
+  <h1>HELLO WORLD!</h1>
+  <p><strong>Hello! I am Sai, nice to meet you.</strong></p>
 </p>
 
 
@@ -103,6 +102,5 @@
 </p>
 
 ---
-
 
 
